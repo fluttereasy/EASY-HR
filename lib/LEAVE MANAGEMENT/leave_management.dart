@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hr_easy/OTP%20FOLDER/otp_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Applied Tab View/applied_tab_view.dart';
 import '../Approval Tab View/approval_tab_view.dart';
 import '../LEAVE APPLY FORM/leave_apply_form.dart';
@@ -14,6 +16,11 @@ class LeaveManagementScreen extends StatefulWidget {
 }
 
 class _LeaveManagementScreenState extends State<LeaveManagementScreen> {
+  void logOut() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    await sp.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -38,6 +45,57 @@ class _LeaveManagementScreenState extends State<LeaveManagementScreen> {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Do you want to logout ?"),
+                          actions: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10))),
+                                    onPressed: () {
+                                      Navigator.pushReplacement(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) =>
+                                                  const OtpScreen()));
+                                      logOut();
+                                    },
+                                    child: const Text(
+                                      "Yes",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10))),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text(
+                                      "No",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                              ],
+                            )
+                          ],
+                        );
+                      });
+                },
+                icon: Icon(Icons.login_rounded))
+          ],
           elevation: 0,
         ),
         body: Column(

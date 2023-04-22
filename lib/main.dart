@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hr_easy/splash_screen.dart';
 
-
 void main() async {
   runApp(const MyApp());
 }

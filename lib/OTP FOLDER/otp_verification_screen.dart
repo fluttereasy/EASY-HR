@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hr_easy/REPOSITORIES/otp_services.dart';
+import 'package:hr_easy/SHARED%20PREF%20UTILS/shared_pref_util.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../DashBoard/dashboard_screen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
-  const OtpVerificationScreen({Key? key}) : super(key: key);
+  final String? phoneNumber;
+  const OtpVerificationScreen({Key? key, required this.phoneNumber})
+      : super(key: key);
 
   @override
   State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
@@ -13,7 +17,7 @@ class OtpVerificationScreen extends StatefulWidget {
 
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   TextEditingController otpController = TextEditingController();
-  String currentText = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,13 +51,13 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             ),
             const SizedBox(height: 10),
             RichText(
-                text: const TextSpan(children: [
-              TextSpan(
+                text: TextSpan(children: [
+              const TextSpan(
                   text: 'Enter the code that we have sent on your \n number',
                   style: TextStyle(color: Colors.grey, fontSize: 16)),
               TextSpan(
-                  text: '    7985564***',
-                  style: TextStyle(
+                  text: "  ${widget.phoneNumber?.substring(0, 6)}" "***",
+                  style: const TextStyle(
                       color: Colors.black,
                       letterSpacing: 2,
                       fontSize: 18,
@@ -62,15 +66,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             const SizedBox(height: 30),
             PinCodeTextField(
               appContext: context,
-              length: 4, // Length of the OTP
+              length: 6, // Length of the OTP
               obscureText:
                   false, // Set to true if the OTP digits should be obscured
               controller: otpController,
-              onChanged: (value) {
-                setState(() {
-                  currentText = value;
-                });
-              },
+              onChanged: (value) {},
               onCompleted: (value) {
                 // Callback function when the OTP is completed
                 //todo
@@ -80,8 +80,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               pinTheme: PinTheme(
                 shape: PinCodeFieldShape.box,
                 borderRadius: BorderRadius.circular(20),
-                fieldHeight: 70,
-                fieldWidth: 70,
+                fieldHeight: 40,
+                fieldWidth: 40,
                 activeFillColor: Colors.white,
                 activeColor: Colors.teal,
                 inactiveFillColor: Colors.white,
@@ -96,11 +96,22 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     fixedSize: Size(MediaQuery.of(context).size.width, 60),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30))),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => const DashBoardScreen()));
+                onPressed: () async {
+                  if (otpController.text == OtpServicces.otpSent.toString()) {
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => const DashBoardScreen()));
+
+                    SharedPreferences sp =
+                        await SharedPreferences.getInstance();
+                    sp.setString(SharedPrefUtils.phoneNumberKey,
+                        widget.phoneNumber.toString());
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text("Incorrect OTP")));
+                  }
                 },
                 child: const Text(
                   'Verify',

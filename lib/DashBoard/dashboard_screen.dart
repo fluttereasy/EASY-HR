@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../CAMERA VIEW/camera_login_button.dart';
 import '../LEAVE MANAGEMENT/leave_management.dart';
+import '../REPOSITORIES/user_profile_services.dart';
 
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({Key? key}) : super(key: key);
@@ -11,17 +12,18 @@ class DashBoardScreen extends StatefulWidget {
 }
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
+  UserProfile _userProfile = UserProfile();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+        //   onPressed: () {
+        //     Navigator.pop(context);
+        //   },
+        // ),
         backgroundColor: Colors.white,
         elevation: 0,
       ),
@@ -32,16 +34,21 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
-              children: const [
-                Text(
-                  'Hello, ',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontSize: 24,
-                      letterSpacing: 2),
+              children: [
+                InkWell(
+                  onTap: () {
+                    _userProfile.getUserProfile("8447659609");
+                  },
+                  child: const Text(
+                    'Hello, ',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 24,
+                        letterSpacing: 2),
+                  ),
                 ),
-                Text(
+                const Text(
                   'Admin, ',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -98,7 +105,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     Navigator.push(
                         context,
                         CupertinoPageRoute(
-                            builder: (context) => LeaveManagementScreen()));
+                            builder: (context) =>
+                                const LeaveManagementScreen()));
                   },
                   child: Container(
                     height: 140,
