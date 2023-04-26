@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hr_easy/REPOSITORIES/otp_services.dart';
+import 'package:hr_easy/REPOSITORIES/OTP%20SERVICES/otp_services.dart';
 
 part 'otp_event.dart';
 part 'otp_state.dart';

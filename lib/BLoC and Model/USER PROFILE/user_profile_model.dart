@@ -2,18 +2,20 @@ import 'package:flutter/cupertino.dart';
 
 class UserProfileModel {
   int? oK;
-  List<Getdatabynumber>? getdatabynumber;
+  // List<Getdatabynumber>? getdatabynumber;
+  List? getdatabynumber;
 
   UserProfileModel({this.oK, this.getdatabynumber});
 
-  UserProfileModel.fromJson(Map<String, dynamic> json) {
-    oK = json['OK'];
-    if (json['getdatabynumber'] != null) {
-      getdatabynumber = <Getdatabynumber>[];
-      json['getdatabynumber'].forEach((v) {
-        getdatabynumber?.add(new Getdatabynumber.fromJson(v));
-      });
-    }
+  factory UserProfileModel.fromJson(Map<String, dynamic> json) {
+    return UserProfileModel(
+        oK: json['OK'], getdatabynumber: json["getEmpdatabynumber"]);
+    // if (json['getdatabynumber'] != null) {
+    //   getdatabynumber = <Getdatabynumber>[];
+    //   json['getdatabynumber'].forEach((v) {
+    //     getdatabynumber?.add(Getdatabynumber.fromJson(v));
+    //   });
+    // }
   }
 }
 

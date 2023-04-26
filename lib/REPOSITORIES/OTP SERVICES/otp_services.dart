@@ -4,7 +4,7 @@ import 'package:hr_easy/CONSTANT/api_url.dart';
 import 'package:http/http.dart' as http;
 
 class OtpServicces {
-  static int ?otpSent;
+  static int? otpSent;
   Future sendOtp(String phoneNumber) async {
     try {
       final String endPoint = "GenrateOTPByNumber?MobileNumber=$phoneNumber";

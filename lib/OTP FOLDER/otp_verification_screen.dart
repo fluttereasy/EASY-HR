@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hr_easy/REPOSITORIES/otp_services.dart';
+import 'package:hr_easy/REPOSITORIES/OTP%20SERVICES/otp_services.dart';
 import 'package:hr_easy/SHARED%20PREF%20UTILS/shared_pref_util.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -101,7 +101,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     Navigator.push(
                         context,
                         CupertinoPageRoute(
-                            builder: (context) => const DashBoardScreen()));
+                            builder: (context) => DashBoardScreen(
+                                  phonNumber: widget.phoneNumber,
+                                )));
 
                     SharedPreferences sp =
                         await SharedPreferences.getInstance();

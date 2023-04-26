@@ -10,14 +10,17 @@ class UserProfile {
     try {
       Map<String, String> headers = {"Content-type": "application/json"};
       String endPoint = "GetIdbyNumber?MobileNo=$phoneNumber";
+      print(phoneNumber);
       final response = await http.get(
         Uri.parse(Constant.baseUrl + endPoint),
         headers: headers,
       );
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
+
         final data = (UserProfileModel.fromJson(jsonData));
-        return data;
+
+        return data.getdatabynumber;
       } else {
         print("userProfileAPI Failed");
       }

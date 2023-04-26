@@ -16,16 +16,19 @@ class _SplashScreenState extends State<SplashScreen> {
   void chechUserLogin() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     final user = sp.get(SharedPrefUtils.phoneNumberKey);
-    print(user);
     if (user == null) {
       Navigator.pushReplacement(
           context, CupertinoPageRoute(builder: (context) => const OtpScreen()));
     } else if (user != null) {
       Navigator.pushReplacement(
-          context, CupertinoPageRoute(builder: (context) => DashBoardScreen()));
+          context,
+          CupertinoPageRoute(
+              builder: (context) => DashBoardScreen(
+                    phonNumber: user.toString(),
+                  )));
     } else {
       Navigator.pushReplacement(
-          context, CupertinoPageRoute(builder: (context) => DashBoardScreen()));
+          context, CupertinoPageRoute(builder: (context) => const OtpScreen()));
     }
   }
 

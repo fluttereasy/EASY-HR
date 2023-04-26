@@ -111,8 +111,8 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              children: [
-                                const Text(
+                              children: const [
+                                Text(
                                   'Name ',
                                   style: TextStyle(fontSize: 16),
                                 ),
@@ -129,7 +129,7 @@ class _ApprovalDetailScreenState extends State<ApprovalDetailScreen> {
                               ],
                             ),
                             Row(
-                              children: [Text("EMP ID : "), Text("21321")],
+                              children: const [Text("EMP ID : "), Text("21321")],
                             )
                           ],
                         )
